@@ -1,0 +1,10 @@
+
+.idea/misc.xml
+.idea/modules.xml
+.idea/Sentiment-analysis.iml
+*.xml
+*.pyc
+try.py
+creat_data/config.py
+creat_label_mysql.py
+SentimentAnalysis/creat_data/bat_1.py
