@@ -116,6 +116,7 @@ model.open_api()
 ### 其他说明
 在训练集很小的情况下，sklearn的概率输出predict_prob会不准。目前发现，SVM会出现所有标签概率一样，暂时没看源码，猜测是离超平面过近不计算概率，predict不会出现这个情况。
 
+## 一个简单的demo
 ``` python
 from SentimentAnalysis.SentimentAnalysis import SentimentAnalysis
 import numpy as np
