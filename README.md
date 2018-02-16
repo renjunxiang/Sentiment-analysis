@@ -38,7 +38,7 @@ texts=['国王喜欢吃苹果',
 texts_withlabel=model.creat_label(texts)
 ```
 
-### 2.通过gensim模块创建词向量词包
+### 3.通过gensim模块创建词向量词包
 ``` python
 model.creat_vocab(texts=texts,
                   sg=0,
@@ -52,7 +52,7 @@ model.load_vocab_word2vec(os.getcwd() + '/models/vocab_word2vec.model')
 model.vocab_word2vec
 ```
 
-### 3.通过scikit-learn进行机器学习
+### 4.通过scikit-learn进行机器学习
 ``` python
 model.train(texts=train_data,
             label=train_label,
@@ -66,7 +66,7 @@ model.model
 model.label
 ```
 
-### 4.通过keras进行深度学习(模型的后缀不同)
+### 5.通过keras进行深度学习(模型的后缀不同)
 ``` python
 model.train(texts=train_data,
             label=train_label,
@@ -87,7 +87,7 @@ model.train_log
 model.label
 ```
 
-### 5.预测
+### 6.预测
 ``` python
 # 概率
 result_prob = model.predict_prob(texts=test_data)
@@ -107,7 +107,7 @@ result = pd.DataFrame({'data': test_data,
 print('test\n', result)
 ```
 
-### 6.开启API
+### 7.开启API
 ``` python
 model.open_api()
 #http://0.0.0.0:5000/SentimentAnalyse/?model_name=模型名称&prob=是否需要返回概率&text=分类文本
