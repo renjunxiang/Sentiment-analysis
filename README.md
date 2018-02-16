@@ -23,12 +23,96 @@ keras=2.1.1<br>
 
 ## 用法简介 SentimentAnalysis
 该模块包含：<br>
-1.借助第三方平台，打情感分析标签。用于在缺乏标签的时候利用BAT三家的接口创建训练集，5000条文档共耗时约45分钟；<br>
-2.通过gensim模块创建词向量词包<br>
-3.通过scikit-learn进行机器学习并预测<br>
-4.通过keras进行深度学习并预测<br>
+### 1.导入模块，创建模型
+``` python
+from SentimentAnalysis.SentimentAnalysis import SentimentAnalysis
+model = SentimentAnalysis()
+```
 
-其他说明：在训练集很小的情况下，sklearn的概率输出predict_prob会不准。目前发现，SVM会出现所有标签概率一样，暂时没看源码，猜测是离超平面过近不计算概率，predict不会出现这个情况。
+### 2.借助第三方平台，打情感分析标签。用于在缺乏标签的时候利用BAT三家的接口创建训练集，5000条文档共耗时约45分钟
+``` python
+texts=['国王喜欢吃苹果',
+       '国王非常喜欢吃苹果',
+       '国王讨厌吃苹果',
+       '国王非常讨厌吃苹果']
+texts_withlabel=model.creat_label(texts)
+```
+
+### 2.通过gensim模块创建词向量词包
+``` python
+model.creat_vocab(texts=texts,
+                  sg=0,
+                  size=5,
+                  window=5,
+                  min_count=1,
+                  vocab_savepath=os.getcwd() + '/vocab_word2vec.model')
+# 也可以导入词向量
+model.load_vocab_word2vec(os.getcwd() + '/models/vocab_word2vec.model')
+# 词向量模型
+model.vocab_word2vec
+```
+
+### 3.通过scikit-learn进行机器学习
+``` python
+model.train(texts=train_data,
+            label=train_label,
+            model_name='SVM',
+            model_savepath=os.getcwd() + '/classify.model')
+# 也可以导入机器学习模型
+model.load_model(model_loadpath=os.getcwd() + '/classify.model')
+# 训练的模型
+model.model
+# 训练集标签
+model.label
+```
+
+### 4.通过keras进行深度学习(模型的后缀不同)
+``` python
+model.train(texts=train_data,
+            label=train_label,
+            model_name='Conv1D',
+            batch_size=100,
+            epochs=2,
+            verbose=1,
+            maxlen=None,
+            model_savepath=os.getcwd() + '/classify.h5')
+
+# 导入深度学习模型
+model.load_model(model_loadpath=os.getcwd() + '/classify.h5')
+# 训练的模型
+model.model
+# 训练的日志
+model.train_log
+# 训练集标签
+model.label
+```
+
+### 5.预测
+``` python
+# 概率
+result_prob = model.predict_prob(texts=test_data)
+result_prob = pd.DataFrame(result_prob, columns=model.label)
+result_prob['predict'] = result_prob.idxmax(axis=1)
+result_prob['data'] = test_data
+result_prob = result_prob[['data'] + list(model.label) + ['predict']]
+print('prob:\n', result_prob)
+
+# 分类
+result = model.predict(texts=test_data)
+print('score:', np.sum(result == np.array(test_label)) / len(result))
+result = pd.DataFrame({'data': test_data,
+                       'label': test_label,
+                       'predict': result},
+                      columns=['data', 'label', 'predict'])
+print('test\n', result)
+```
+
+### 6.开启API
+model.open_api()
+#http://0.0.0.0:5000/SentimentAnalyse/?model_name=模型名称&prob=是否需要返回概率&text=分类文本
+
+### 其他说明
+在训练集很小的情况下，sklearn的概率输出predict_prob会不准。目前发现，SVM会出现所有标签概率一样，暂时没看源码，猜测是离超平面过近不计算概率，predict不会出现这个情况。
 
 ``` python
 from SentimentAnalysis.SentimentAnalysis import SentimentAnalysis
