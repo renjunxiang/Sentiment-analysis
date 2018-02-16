@@ -108,8 +108,10 @@ print('test\n', result)
 ```
 
 ### 6.开启API
+``` python
 model.open_api()
 #http://0.0.0.0:5000/SentimentAnalyse/?model_name=模型名称&prob=是否需要返回概率&text=分类文本
+```
 
 ### 其他说明
 在训练集很小的情况下，sklearn的概率输出predict_prob会不准。目前发现，SVM会出现所有标签概率一样，暂时没看源码，猜测是离超平面过近不计算概率，predict不会出现这个情况。
