@@ -84,6 +84,8 @@ model.load_model(model_loadpath=os.getcwd() + '/classify.h5')
 model.model
 # 训练的日志
 model.train_log
+# 可视化训练过程
+keras_log_plot(model.train_log)
 # 训练集标签
 model.label
 ```
