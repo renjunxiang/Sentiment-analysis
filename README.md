@@ -85,6 +85,7 @@ model.model
 # 训练的日志
 model.train_log
 # 可视化训练过程
+from SentimentAnalysis.models.keras_log_plot import keras_log_plot
 keras_log_plot(model.train_log)
 # 训练集标签
 model.label
@@ -122,6 +123,7 @@ model.open_api()
 ## 一个简单的demo
 ``` python
 from SentimentAnalysis.SentimentAnalysis import SentimentAnalysis
+from SentimentAnalysis.models.keras_log_plot import keras_log_plot
 import numpy as np
 
 train_data = ['国王喜欢吃苹果',
