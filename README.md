@@ -30,8 +30,7 @@ requests=2.18.4<br>
 SentimentAnalysis文件夹可以直接作为模块使用<br>
 ***PS：该项目在上一个项目Text-Classification基础上封装而成~目前公司情感分析借鉴这个项目，有很多不足，欢迎萌新、大佬多多指导！***
 
-## SentimentAnalysis 用法简介
-该模块包含：<br>
+## 用法简介
 ### 1.导入模块，创建模型
 ``` python
 from SentimentAnalysis.SentimentAnalysis import SentimentAnalysis
