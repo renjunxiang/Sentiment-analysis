@@ -243,18 +243,18 @@ from SentimentAnalysis import SentimentAnalysis
 model = SentimentAnalysis()
 model.open_api()
 ```
-<br>
-例子<br>
 
-SVM模型，返回概率<br>
+### 例子
+
+* __SVM模型，返回概率__<br>
 url:http://192.168.3.59:5000/SentimentAnalyse/?model_name=SVM&prob=1&text=东西很不错<br>
 ![api1](https://github.com/renjunxiang/Sentiment-analysis/blob/master/picture/api1.png)<br>
 
-Conv1D模型，返回分类<br>
+* __Conv1D模型，返回分类__<br>
 url:http://192.168.3.59:5000/SentimentAnalyse/?model_name=Conv1D&prob=0&text=东西很不错<br>
 ![api2](https://github.com/renjunxiang/Sentiment-analysis/blob/master/picture/api2.png)<br>
 
-文本中的词语均不在词向量词库中<br>
+* __文本中的词语均不在词向量词库中__<br>
 url:http://192.168.3.59:5000/SentimentAnalyse/?model_name=SVM&prob=0&text=呜呜呜<br>
 ![api3](https://github.com/renjunxiang/Sentiment-analysis/blob/master/picture/api3.png)<br>
 
