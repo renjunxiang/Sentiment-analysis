@@ -31,14 +31,15 @@ SentimentAnalysis文件夹可以直接作为模块使用<br>
 ***PS：该项目在上一个项目Text-Classification基础上封装而成~目前公司情感分析借鉴这个项目，有很多不足，欢迎萌新、大佬多多指导！***
 
 ## 用法简介
-### 1.导入模块，创建模型
+* ### 导入模块，创建模型
 ``` python
 from SentimentAnalysis.SentimentAnalysis import SentimentAnalysis
 model = SentimentAnalysis()
 ```
 
-### 2.借助第三方平台，打情感分析标签。用于在缺乏标签的时候利用BAT三家的接口创建训练集，5000条文档共耗时约45分钟
+* ### 借助第三方平台，打情感标签。
 ``` python
+# 用于在缺乏标签的时候利用BAT三家的接口创建训练集，5000条文档共耗时约45分钟
 texts=['国王喜欢吃苹果',
        '国王非常喜欢吃苹果',
        '国王讨厌吃苹果',
@@ -46,7 +47,7 @@ texts=['国王喜欢吃苹果',
 texts_withlabel=model.creat_label(texts)
 ```
 
-### 3.通过gensim模块创建词向量词包
+* ### 通过gensim模块创建词向量词包
 ``` python
 model.creat_vocab(texts=texts,
                   sg=0,
@@ -60,7 +61,7 @@ model.load_vocab_word2vec(os.getcwd() + '/models/vocab_word2vec.model')
 model.vocab_word2vec
 ```
 
-### 4.通过scikit-learn进行机器学习
+* ### 通过scikit-learn进行机器学习
 ``` python
 model.train(texts=train_data,
             label=train_label,
@@ -74,7 +75,7 @@ model.model
 model.label
 ```
 
-### 5.通过keras进行深度学习(模型的后缀不同)
+* ### 通过keras进行深度学习(模型的后缀不同)
 ``` python
 model.train(texts=train_data,
             label=train_label,
@@ -98,7 +99,7 @@ keras_log_plot(model.train_log)
 model.label
 ```
 
-### 6.预测
+* ### 预测
 ``` python
 # 概率
 result_prob = model.predict_prob(texts=test_data)
@@ -118,13 +119,14 @@ result = pd.DataFrame({'data': test_data,
 print('test\n', result)
 ```
 
-### 7.开启API
+* ### 开启API
 ``` python
+# 需要先训练好模型
 model.open_api()
 #http://0.0.0.0:5000/SentimentAnalyse/?model_name=模型名称&prob=是否需要返回概率&text=分类文本
 ```
 
-### 其他说明
+* ### 其他说明
 在训练集很小的情况下，sklearn的概率输出predict_prob会不准。目前发现，SVM会出现所有标签概率一样，暂时没看源码，猜测是离超平面过近不计算概率，predict不会出现这个情况。
 
 ## 一个简单的demo
